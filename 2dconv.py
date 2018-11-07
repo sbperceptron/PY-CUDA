@@ -3,6 +3,7 @@ import pycuda.autoinit
 import pycuda.driver as cuda
 from pycuda.compiler import SourceModule
 import string
+import matplotlib.pyplot as plt
 
 # Pull out a bunch of stuff that was hard coded as pre-processor directives used
 # by both the kernel and calling code.
@@ -314,11 +315,14 @@ def test_convolution_cuda():
     # Generate or load a test image
     original = numpy.random.rand(768,  1024) * 255
     original = numpy.float32(original)
+    plt.imshow(original, cmap="gray")
     # You probably want to display the image using the tool of your choice here.
     filterx = gaussian_kernel()
     destImage = original.copy()
     destImage[:] = numpy.nan
     destImage = convolution_cuda(original,  filterx,  filterx)
+    plt.imshow(destImage, cmap="gray")
+    plt.show()
     # You probably want to display the result image using the tool of your choice here.
     print 'Done running the convolution kernel!'
 
