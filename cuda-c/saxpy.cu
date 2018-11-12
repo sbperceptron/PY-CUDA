@@ -1,4 +1,30 @@
 #include <stdio.h>
+// the kernels such as saxpy are defined using __global__ declaration
+// specifier. 
+// variables defined with in the device code do not need to be specified as 
+// device variables as they are presumed to reside on the device
+// in this case the variables n a and i are stored by each thread on 
+// registers. and the pointers x and y are pointers to the device memory 
+// the first two arguments n and a are not explicitly transfered to device in
+// host code this is because function arguments are passed by value by default
+// in c or c++ and cuda can automatically handle the transfer of the values
+
+// as we know the kernel is excecuted by multiple threads in parallel.
+// but if we want each thread to process a element of resultant array then 
+// we need a means of distinguishing each and identifying each thread.
+// cuda defines blockdim, blockidx and threadidx. these predefined variables // are of the type dim3.
+
+// the predefined variable blockdim contains the dimension of each thread 
+// block
+
+// the predefined variables thread idx and the blockidx contain the index of // thread with in thread block and the thread block with in the grid
+
+// so the index i is the global index that is used to access the elements of // the arrays. 
+
+// griddim is another parameter that stores the dimensions of the grid
+
+// the second line performs the saxpy operation element wisse
+
 
 __global__
 void saxpy(int n, float a, float *x, float *y)
@@ -67,3 +93,7 @@ int main(void)
   free(x);
   free(y);
 }
+
+
+// compiling and running the code. we use the cuda c nvcc compiler to compile // the code in a file with .cu extension
+nvcc -o saxpy saxpy.cu
