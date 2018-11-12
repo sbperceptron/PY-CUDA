@@ -106,3 +106,6 @@ of operations for a cuda c program is
 
 saxpy single precision a*x plus y 
 it is a good hello world example for parallel computaion
+
+# compiling a cuda c file
+*nvcc -o saxpy saxpy.cu*
