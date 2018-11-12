@@ -107,5 +107,16 @@ of operations for a cuda c program is
 saxpy single precision a*x plus y 
 it is a good hello world example for parallel computaion
 
+the function saxpy is the function that runs in parallel on gpu
+and the main function is the host code
+the main function declares two pairs of arrays
+
+*float *x, *y, *d_x, *d_y;
+  x = (float*)malloc(N*sizeof(float));
+  y = (float*)malloc(N*sizeof(float));
+
+  cudaMalloc(&d_x, N*sizeof(float)); 
+  cudaMalloc(&d_y, N*sizeof(float));*
+
 # compiling a cuda c file
 *nvcc -o saxpy saxpy.cu*
