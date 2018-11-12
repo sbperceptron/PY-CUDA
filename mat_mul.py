@@ -9,13 +9,11 @@ global memory only. Each thread computes one element of the resulting matrix.
 import numpy as np
 import time
 from pycuda import driver, compiler, gpuarray, tools
-
 import pycuda.autoinit
 import pycuda.driver as cuda
 import pycuda.gpuarray as gpuarray
 import numpy
 from pycuda.compiler import SourceModule
-import time
 
 gpu_start=time.time()
 # transfering the data onto device
@@ -38,11 +36,17 @@ mod= SourceModule("""
     int idx = threadIdx.x +threadIdx.y*4;
     a[idx] *=a[idx];
     }
+    __global__ void mul(float *a, float *b, float *c)
+    {
+    int idx = threadIdx.x +threadIdx.y*4;
+    c[idx] =a[idx]*b[idx];
+    }
     """)
 # The code is now loaded into device 
 
-func= mod.get_function("doublify")
-func(a_gpu, block=(4,4,1))
+func1= mod.get_function("doublify")
+func2= mod.get_function("mul")
+func1(a_gpu, block=(4,4,1))
 
 # finally we will get the data back from the Gpu and display it 
 a_doubled=numpy.empty_like(a)
