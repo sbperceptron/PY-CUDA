@@ -94,6 +94,7 @@ three dimensional index accessible within the kernek through the built-in blockI
 variable. the dimesnion of the thred block is accessible within the kernel through the builtin
 blockDim variable.
 
+
  
 
 Given the heterogeneous nature of the cuda programming model, a typical sequence 
@@ -111,8 +112,6 @@ the function saxpy is the function that runs in parallel on gpu
 and the main function is the host code
 
 refer to saxpy.cu for detailed explaination of the working
-
-
 
 # compiling a cuda c file
 *nvcc -o saxpy saxpy.cu*
