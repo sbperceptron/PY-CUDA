@@ -109,14 +109,10 @@ it is a good hello world example for parallel computaion
 
 the function saxpy is the function that runs in parallel on gpu
 and the main function is the host code
-the main function declares two pairs of arrays
 
-* float *x, *y, *d_x, *d_y;\n
-  x = (float*)malloc(N*sizeof(float));
-  y = (float*)malloc(N*sizeof(float));
+refer to saxpy.cu for detailed explaination of the working
 
-  cudaMalloc(&d_x, N*sizeof(float)); 
-  cudaMalloc(&d_y, N*sizeof(float));*
+
 
 # compiling a cuda c file
 *nvcc -o saxpy saxpy.cu*
