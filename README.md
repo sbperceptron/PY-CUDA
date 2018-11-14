@@ -1,3 +1,6 @@
+
+# For quick overview of how the cuda works refer  to the saxpy.cu file
+
 # PY-CUDA
 pycuda gives you easy access to nvidias cuda parallel cumputation api.
 
