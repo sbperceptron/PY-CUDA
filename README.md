@@ -1,4 +1,15 @@
 
+# Gtx 1060 
+1. Total amount of constant memory:               65536 bytes
+2. Total amount of shared memory per block:       49152 bytes
+3. Total number of registers available per block: 65536
+4. Warp size:                                     32
+5. Maximum number of threads per multiprocessor:  2048
+6. Maximum number of threads per block:           1024
+7. Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
+8. Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)
+
+
 # For quick overview of how the cuda parallel processing works refer  to the saxpy.cu file in cuda-c
 
 # PY-CUDA
