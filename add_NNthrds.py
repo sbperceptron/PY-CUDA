@@ -9,6 +9,8 @@ from pycuda.compiler import SourceModule
 # number of threads possible per block 1024
 # Blocks are organized into a one-dimensional, two-dimensional, or three-dimensional 
 # grid of thread blocks
+# the number of threads in a thread block are dictated by the size of the data
+# being processed or the number of processors in the system
 kernel_code_template = """__global__ void MatAdd(float *A, float *B, float *C)
 {	
 	// 2D Thread ID (assuming that only *one* block will be executed)
