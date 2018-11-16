@@ -5,6 +5,10 @@ import numpy as np
 from pycuda.compiler import SourceModule
 
 # numpy arrays are passed to kernels as pointers to flat arrays
+# the blocks size for carrying out the computation is at max 32*32 or the max
+# number of threads possible per block 1024
+# Blocks are organized into a one-dimensional, two-dimensional, or three-dimensional 
+# grid of thread blocks
 kernel_code_template = """__global__ void MatAdd(float *A, float *B, float *C)
 {	
 	// 2D Thread ID (assuming that only *one* block will be executed)
@@ -20,7 +24,7 @@ kernel_code_template = """__global__ void MatAdd(float *A, float *B, float *C)
     for (int k = 0; k < %(N)s; ++k) {
         float Aelement = A[ty * %(N)s + k];
         float Belement = B[k * %(N)s + tx];
-        Pvalue += Aelement + Belement;
+        Pvalue = Aelement + Belement;
         }
 
     // Write the matrix to device memory;
@@ -29,9 +33,9 @@ kernel_code_template = """__global__ void MatAdd(float *A, float *B, float *C)
 
 }"""
 
-N=15
-a= np.ones((N,N)).astype(np.float32)
-b= np.ones((N,N)).astype(np.float32)
+N = 32
+a = np.ones((N,N), dtype=np.float32)
+b = np.ones((N,N), dtype=np.float32)
 
 
 d_a = gpuarray.to_gpu(a) 
@@ -51,4 +55,4 @@ func(d_a, d_b, d_c, block=(N,N,1))
 
 print d_c.get()
 
-np.allclose(c_cpu, c_gpu.get())
+# np.allclose(c_cpu, c_gpu.get())
