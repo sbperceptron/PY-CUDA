@@ -132,6 +132,14 @@ we can specify sycn points in the kernel by calling "__syncthreads()"__
 this function acts as a barrier at which all threads in the block must waut before
 any is allowed to proceed
 
+# Memory hierarchy
+each thread had a primitive local memory and each thread block has shared memory 
+available to all threads of the block.
+we have two additional read only memory spaces accessible by all threads
+constant memory and texture memory
+
+# Heterogeneous programming
+
 
 
  
