@@ -9,6 +9,24 @@
 7. Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
 8. Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)
 
+Given the heterogeneous nature of the cuda programming model, a typical sequence 
+of operations for a cuda c program is
+1. Declare and allocate host and device memory. 
+2. initialize host data.
+3. transfer data from the host to device
+4. excecute one or more kernels.
+5. transfer results from the device to the host.
+
+saxpy single precision a*x plus y 
+it is a good hello world example for parallel computaion
+
+the function saxpy is the function that runs in parallel on gpu
+and the main function is the host code
+
+refer to saxpy.cu for detailed explaination of the working
+
+# compiling a cuda c file
+*nvcc -o saxpy saxpy.cu*
 
 # For quick overview of how the cuda parallel processing works refer  to the saxpy.cu file in cuda-c
 
@@ -108,24 +126,14 @@ three dimensional index accessible within the kernek through the built-in blockI
 variable. the dimesnion of the thred block is accessible within the kernel through the builtin
 blockDim variable.
 
+threads within a block can cooperate by shraning data through some shared memory 
+and by synchroinizing their execution to coordinate memory accesses. 
+we can specify sycn points in the kernel by calling "__syncthreads()"__
+this function acts as a barrier at which all threads in the block must waut before
+any is allowed to proceed
+
+
 
  
 
-Given the heterogeneous nature of the cuda programming model, a typical sequence 
-of operations for a cuda c program is
-1. Declare and allocate host and device memory. 
-2. initialize host data.
-3. transfer data from the host to device
-4. excecute one or more kernels.
-5. transfer results from the device to the host.
 
-saxpy single precision a*x plus y 
-it is a good hello world example for parallel computaion
-
-the function saxpy is the function that runs in parallel on gpu
-and the main function is the host code
-
-refer to saxpy.cu for detailed explaination of the working
-
-# compiling a cuda c file
-*nvcc -o saxpy saxpy.cu*
